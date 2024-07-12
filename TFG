@@ -1,0 +1,195 @@
+# Comparación de Europa, China y EEUU.
+
+N <- c('UE','China','EEUU')
+
+# Emisión de CO_2 en 2019. 
+
+d1_2019 <- c(2729,10762,4817)
+
+total <- sum(d1_2019)
+
+# Quitamos el 43% del estado total, y el problema se convierte en uno de bancarrota. 
+
+Estado <- total*0.57
+
+# Cargamos el paquete de Teoría de juegos. 
+
+library(GameTheory) 
+
+P<-summary(Proportional(Estado,d1_2019,N))[,2]
+AP<-summary(AdjustedProportional(Estado,d1_2019,N))[,2]
+CEA<-summary(CEA(Estado,d1_2019,N))[,2]
+CEL<-summary(CEL(Estado,d1_2019,N))[,2]
+Talmud<-summary(Talmud(Estado,d1_2019,N))[,2]
+RA<-summary(RandomArrival(Estado,d1_2019,N))[,2]
+
+# Hacemos las gráficas. 
+
+install.packages("ggplot2")
+library(ggplot2)
+
+# Gráfico Regla P. 
+
+datos <- data.frame(
+  Pais = rep(c("UE", "China", "EEUU"), each = 2),
+  Año = rep(c('2019', '2030'), times = 3),
+  Cantidad = c(2729,1555.53,10762,6134.34,4817,2745.69)
+)
+
+datos$Pais <- factor(datos$Pais, levels = c("UE", "China", "EEUU")) #Para ordenar
+
+# Creamos el gráfico. 
+
+ggplot(datos, aes(x = Pais, y = Cantidad, fill = Año)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Comparación 2019-2030, regla P",
+       x = "Países",
+       y = "Cantidad de CO_2 (en Mt)") +
+  theme_bw()
+
+# Gráfico regla AP. 
+
+datos <- data.frame(
+  Pais = rep(c("UE", "China", "EEUU"), each = 2),
+  Año = rep(c('2019', '2030'), times = 3),
+  Cantidad = c(2729,1364.50,10762,6662.56,4817,2408.50)
+)
+
+datos$Pais <- factor(datos$Pais, levels = c("UE", "China", "EEUU")) #Para ordenar
+
+# Creamos el gráfico. 
+
+ggplot(datos, aes(x = Pais, y = Cantidad, fill = Año)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Comparación 2019-2030, regla AP",
+       x = "Países",
+       y = "Cantidad de CO_2 (en Mt)") +
+  theme_bw()
+
+# Gráfico regla CEA. 
+
+datos <- data.frame(
+  Pais = rep(c("UE", "China", "EEUU"), each = 2),
+  Año = rep(c('2019', '2030'), times = 3),
+  Cantidad = c(2729,2729.00,10762,3853.28,4817,3853.28)
+)
+
+datos$Pais <- factor(datos$Pais, levels = c("UE", "China", "EEUU")) #Para ordenar
+
+# Creamos el gráfico.
+
+ggplot(datos, aes(x = Pais, y = Cantidad, fill = Año)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Comparación 2019-2030, regla CEA",
+       x = "Países",
+       y = "Cantidad de CO_2 (en Mt)") +
+  theme_bw()
+
+#Regla CEL. 
+
+datos <- data.frame(
+  Pais = rep(c("UE", "China", "EEUU"), each = 2),
+  Año = rep(c('2019', '2030'), times = 3),
+  Cantidad = c(2729,104.8533,10762,8137.8533,4817,2192.8533)
+)
+
+datos$Pais <- factor(datos$Pais, levels = c("UE", "China", "EEUU")) #Para ordenar
+
+# Creamos el gráfico. 
+
+ggplot(datos, aes(x = Pais, y = Cantidad, fill = Año)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Comparación 2019-2030, regla CEL",
+       x = "Países",
+       y = "Cantidad de CO_2 (en Mt)") +
+  theme_bw()
+
+#Regla del Talmud. 
+
+datos <- data.frame(
+  Pais = rep(c("UE", "China", "EEUU"), each = 2),
+  Año = rep(c('2019', '2030'), times = 3),
+  Cantidad = c(2729,1364.50,10762,7508.03,4817,1563.03)
+)
+
+datos$Pais <- factor(datos$Pais, levels = c("UE", "China", "EEUU")) #Para ordenar
+
+# Creamos el gráfico. 
+
+ggplot(datos, aes(x = Pais, y = Cantidad, fill = Año)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Comparación 2019-2030, regla T",
+       x = "Países",
+       y = "Cantidad de CO_2 (en Mt)") +
+  theme_bw()
+
+#Regla de llegadas aleatorias. 
+
+datos <- data.frame(
+  Pais = rep(c("UE", "China", "EEUU"), each = 2),
+  Año = rep(c('2019', '2030'), times = 3),
+  Cantidad = c(2729,1364.50,10762,6662.56,4817,2408.50)
+)
+
+datos$Pais <- factor(datos$Pais, levels = c("UE", "China", "EEUU")) #Para ordenar
+
+# Creamos el gráfico. 
+
+ggplot(datos, aes(x = Pais, y = Cantidad, fill = Año)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Comparación 2019-2030, regla RA",
+       x = "Países",
+       y = "Cantidad de CO_2 (en Mt)") +
+  theme_bw()
+
+##########################################
+
+# Comparación de las comunidades autónomas. 
+
+N<-c('Andalucía','Asturias','Castilla y León','Madrid','Cataluña','C. Valenciana','Galicia','Castilla la Mancha','Aragón','País Vasco')
+
+d2 <- c(46.895,19.351,24.308,22.647,43.991,24.474,22.434,18.891,14.844,18.310)
+
+Estado2<-sum(d2)*0.57
+
+P<-summary(Proportional(Estado2,d2,N))[,2]
+AP<-summary(AdjustedProportional(Estado2,d2,N))[,2]
+CEA<-summary(CEA(Estado2,d2,N))[,2]
+CEL<-summary(CEL(Estado2,d2,N))[,2]
+Talmud<-summary(Talmud(Estado2,d2,N))[,2]
+RA<-summary(RandomArrival(Estado2,d2,N))[,2]
+
+# Creamos las gráficas. 
+
+bar_P <- t(cbind(matrix(P, ncol = 1),matrix(d2-P, ncol = 1)))
+
+barplot(bar_P,main = 'Reparto según la regla P',xlab = 'Pagos',ylab = 'Cantidad de CO_2 (en kt)',names.arg = N,col = c('orange','grey'),ylim = c(0,50))
+
+
+bar_AP <- t(cbind(matrix(AP, ncol = 1),matrix(d2-AP, ncol = 1)))
+
+barplot(bar_AP,main = 'Reparto según la regla AP',xlab = 'Pagos',ylab = 'Cantidad de CO_2 (en kt)',names.arg = N,col = c('green','grey'),ylim = c(0,50))
+
+
+bar_CEA <- t(cbind(matrix(CEA, ncol = 1),matrix(d2-CEA, ncol = 1)))
+
+barplot(bar_CEA,main = 'Reparto según la regla CEA',xlab = 'Pagos',ylab = 'Cantidad de CO_2 (en kt)',names.arg = N,col = c('blue','grey'),ylim = c(0,50))
+
+
+bar_CEL <- t(cbind(matrix(CEL, ncol = 1),matrix(d2-CEL, ncol = 1)))
+
+barplot(bar_CEL,main = 'Reparto según la regla CEL',xlab = 'Pagos',ylab = 'Cantidad de CO_2 (en kt)',names.arg = N,col = c('yellow','grey'),ylim = c(0,50))
+
+bar_CEL2 <- t(cbind(matrix(d2-CEL, ncol = 1),matrix(CEL, ncol = 1)))
+
+barplot(bar_CEL2,main = 'Reparto según la regla CEL',xlab = 'Pagos',ylab = 'Cantidad de CO_2 (en kt)',names.arg = N,col = c('grey','yellow'),ylim = c(0,50))
+
+
+bar_Talmud <- t(cbind(matrix(Talmud, ncol = 1),matrix(d2-Talmud, ncol = 1)))
+
+barplot(bar_Talmud,main = 'Reparto según la regla Talmud',xlab = 'Pagos',ylab = 'Cantidad de CO_2 (en kt)',names.arg = N,col = c('red','grey'),ylim = c(0,50))
+
+
+bar_RA <- t(cbind(matrix(RA, ncol = 1),matrix(d2-RA, ncol = 1)))
+
+barplot(bar_RA,main = 'Reparto según la regla RA',xlab = 'Pagos',ylab = 'Cantidad de CO_2 (en kt)',names.arg = N,col = c('pink','grey'),ylim = c(0,50))
